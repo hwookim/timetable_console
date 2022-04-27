@@ -1,6 +1,9 @@
 from utils import *
 
 
+lectures = []
+
+
 def main():
     value = 0
     while value != 7:
@@ -19,6 +22,7 @@ def main():
         elif value == 6:
             print()
             print('프로그램을 종료합니다.')
+            break
         else:
             print('1 ~ 6 사이의 수를 입력해주세요.')
 
