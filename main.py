@@ -4,7 +4,7 @@ from utils import *
 def main():
     value = 0
     while value != 7:
-        printMenu()
+        print_menu()
         value = input_number('> ', '1 ~ 6 사이의 수를 입력해주세요.')
         if value == 1:
             manage_subjects()
@@ -23,7 +23,7 @@ def main():
             print('1 ~ 6 사이의 수를 입력해주세요.')
 
 
-def printMenu():
+def print_menu():
     print()
     print('**********************************************************************')
     print('1. 교과목 관리')
