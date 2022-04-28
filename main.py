@@ -1,4 +1,5 @@
 from utils import *
+from manage_lectures import manage_lectures
 
 
 lectures = []
@@ -40,10 +41,6 @@ def print_menu():
 
 
 def manage_subjects():
-    print()
-
-
-def manage_lectures():
     print()
 
 
