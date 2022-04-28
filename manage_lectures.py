@@ -3,24 +3,25 @@ from utils import *
 
 
 def manage_lectures(lectures=[]):
+    data = lectures
     value = 0
     while value != 5:
         print_menu()
         value = input_number('> ', '1 ~ 5 사이의 수를 입력해주세요.')
         if value == 1:
-            print_lectures(lectures)
+            print_lectures(data)
         elif value == 2:
-            lectures.append(input_lecture())
+            data.append(input_lecture())
         elif value == 3:
-            update_lecture()
+            data = update_lecture(data)
         elif value == 4:
-            delete_lecture()
+            data = delete_lecture(data)
         elif value == 5:
             break
         else:
             print('1 ~ 5 사이의 수를 입력해주세요.')
 
-    return lectures
+    return data
 
 
 def print_menu():
@@ -35,6 +36,9 @@ def print_menu():
 
 
 def print_lectures(lectures=[]):
+    if not len(lectures) > 0:
+        print('등록된 강의가 없습니다.')
+        return
     print('No.\t\t 강의 코드\t 교과목 코드\t 개설 학년\t 개설 학기\t 교원명')
     print('--------------- --------------- --------------- --------------- --------------- ---------------\t')
     for index, lecture in enumerate(lectures):
@@ -56,12 +60,54 @@ def input_lecture():
             'teacher': teacher}
 
 
-def update_lecture():
+def update_lecture(lectures=[]):
+    data = lectures
+
     print()
+    if not len(data) > 0:
+        print('등록된 강의가 없습니다.')
+        return
+    index = select_lecture(data)
+    data[index] = input_lecture()
+
+    return data
 
 
-def delete_lecture():
+def delete_lecture(lectures=[]):
+    data = lectures
+
     print()
+    if not len(data) > 0:
+        print('등록된 강의가 없습니다.')
+        return
+    index = select_lecture(data)
+    del data[index]
+
+    return data
+
+
+def select_lecture(lectures=[]):
+    data = lectures
+
+    if not len(data) > 0:
+        print('등록된 강의가 없습니다.')
+        return
+    print_lectures(data)
+    print()
+
+    index = input_range('No. > ', 1, len(data), '범위 내의 값을 입력해주세요.') - 1
+    print_lecture(data[index])
+
+    return index
+
+
+def print_lecture(lecture):
+    print()
+    print('강의 코드\t : %s' % lecture['id'])
+    print('교과목 코드\t : %s' % lecture['subject_id'])
+    print('개설 학년\t : %d' % lecture['year'])
+    print('개설 학기\t : %d' % lecture['semester'])
+    print('교원명\t\t : %s' % lecture['teacher'])
 
 
 manage_lectures()
