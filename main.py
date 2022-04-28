@@ -1,8 +1,10 @@
+from re import sub
 from utils import *
 from manage_lectures import manage_lectures
 
 
 lectures = []
+subjects = []
 
 
 def main():
@@ -13,7 +15,7 @@ def main():
         if value == 1:
             manage_subjects()
         elif value == 2:
-            manage_lectures()
+            manage_lectures(lectures, subjects)
         elif value == 3:
             manage_rooms()
         elif value == 4:

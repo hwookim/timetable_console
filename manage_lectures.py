@@ -1,7 +1,7 @@
 from utils import *
 
 
-def manage_lectures(lectures=[]):
+def manage_lectures(lectures=[], subjects=[]):
     data = lectures
     value = 0
     while value != 5:
@@ -10,7 +10,7 @@ def manage_lectures(lectures=[]):
         if value == 1:
             print_lectures(data)
         elif value == 2:
-            data.append(input_lecture())
+            data.append(input_lecture(subjects))
         elif value == 3:
             data = update_lecture(data)
         elif value == 4:
@@ -46,10 +46,10 @@ def print_lectures(lectures=[]):
                lecture['year'], lecture['semester'], lecture['teacher'][0:15]))
 
 
-def input_lecture():
+def input_lecture(subjects=[]):
     print()
     id = input('강의 코드\t > ')
-    subject_id = input('교과목 코드\t > ')
+    subject_id = input_subjects(subjects)
     year = input_range('개설 년도\t > ', 2000, 3000, '올바른 년도를 입력해주세요.')
     semester = input_range('개설 학기\t > ', 1, 2, '올바른 학기를 입력해주세요.')
     teacher = input('교원명\t\t > ')
@@ -57,6 +57,17 @@ def input_lecture():
     return {'id': id, 'subject_id': subject_id,
             'year': year, 'semester': semester,
             'teacher': teacher}
+
+
+def input_subjects(subjects=[]):
+    while True:
+        subject_id = input('교과목 코드\t > ')
+
+        for subject in subjects:
+            if subject['id'] == subject_id:
+                return subject_id
+
+        print('해당하는 교과목이 없습니다.')
 
 
 def update_lecture(lectures=[]):
