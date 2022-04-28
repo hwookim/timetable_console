@@ -108,6 +108,3 @@ def print_lecture(lecture):
     print('개설 학년\t : %d' % lecture['year'])
     print('개설 학기\t : %d' % lecture['semester'])
     print('교원명\t\t : %s' % lecture['teacher'])
-
-
-manage_lectures()
