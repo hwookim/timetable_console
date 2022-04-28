@@ -1,4 +1,3 @@
-from numpy import delete
 from utils import *
 
 
