@@ -1,10 +1,14 @@
 from re import sub
 from utils import *
+
 from manage_lectures import manage_lectures
+from manage_timetable import manage_timetable
 
 
-lectures = []
 subjects = []
+lectures = []
+rooms = []
+timetable = []
 
 
 def main():
@@ -19,7 +23,7 @@ def main():
         elif value == 3:
             manage_rooms()
         elif value == 4:
-            manage_timetable()
+            manage_timetable(timetable, lectures, rooms)
         elif value == 5:
             manage_data()
         elif value == 6:
@@ -47,10 +51,6 @@ def manage_subjects():
 
 
 def manage_rooms():
-    print()
-
-
-def manage_timetable():
     print()
 
 
