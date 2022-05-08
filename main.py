@@ -5,9 +5,8 @@ from manage_lectures import manage_lectures
 from manage_timetable import manage_timetable
 
 
-_subjects = {'MME': {SUBJECT_NAME: '자율사물기초프로그래밍'}}
-_lectures = {'MME-01': {TEACHER: '성연식',
-                        SUBJECT_ID: 'MME', YEAR: '2022', SEMESTER: '1'}}
+_subjects = {}
+_lectures = {}
 _rooms = []
 _timetable = {}
 
