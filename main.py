@@ -7,10 +7,10 @@ from manage_timetable import manage_timetable
 from manage_data import manage_data
 
 
-_subjects = [{SUBJECT_ID: 'MME', SUBJECT_NAME: '자율사물기초프로그래밍',
+_subjects = [{SUBJECT_CODE: 'MME', SUBJECT_NAME: '자율사물기초프로그래밍',
               SUBJECT_GRADE: '1', SUBJECT_SEM: '1', SUBJECT_EX: '파이썬'}]
 _lectures = {'MME-01': {TEACHER: '성연식',
-                        SUBJECT_ID: 'MME', YEAR: '2022', SEMESTER: '1'}}
+                        SUBJECT_CODE: 'MME', YEAR: '2022', SEMESTER: '1'}}
 _rooms = []
 _timetable = {
     '2022': {

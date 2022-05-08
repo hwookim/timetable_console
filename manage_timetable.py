@@ -97,9 +97,9 @@ def print_timetable_in_range_time(year, semester, start, end):
 
 
 def get_lecture_info(lecture_code):
-    subject_id = _lectures[lecture_code][SUBJECT_ID]
+    subject_code = _lectures[lecture_code][SUBJECT_CODE]
     for subject in _subjects:
-        if subject[SUBJECT_ID] == subject_id:
+        if subject[SUBJECT_CODE] == subject_code:
             subject_name = subject[SUBJECT_NAME]
     teacher_name = _lectures[lecture_code][TEACHER]
     return '{0}({1})'.format(subject_name[0:10], teacher_name[0:3])

@@ -1,15 +1,15 @@
-SUBJECT_ID = 'subjectCode'
+SUBJECT_CODE = 'subjectCode'
 SUBJECT_NAME = 'subjectName'
 SUBJECT_GRADE = 'subjectGrade'
 SUBJECT_SEM = 'subjectSem'
 SUBJECT_EX = 'subjectEx'
 
-LECTURE_ID = '강의 코드'
+LECTURE_CODE = '강의 코드'
 YEAR = '개설 년도'
 SEMESTER = '개설 학기'
 TEACHER = '교원명'
 
-ROOM_ID = '강의실 코드'
+ROOM_CODE = '강의실 코드'
 
 
 DAYS = ('월요일', '화요일', '수요일', '목요일', '금요일')
