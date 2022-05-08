@@ -1,5 +1,8 @@
 SUBJECT_ID = 'subjectCode'
 SUBJECT_NAME = 'subjectName'
+SUBJECT_GRADE = 'subjectGrade'
+SUBJECT_SEM = 'subjectSem'
+SUBJECT_EX = 'subjectEx'
 
 LECTURE_ID = '강의 코드'
 YEAR = '개설 년도'
