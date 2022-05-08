@@ -1,3 +1,4 @@
+import unicodedata
 import pickle
 
 
@@ -31,3 +32,37 @@ def save_data(data, path):
 def load_data(path):
     with open(path, 'rb') as file:
         return pickle.load(file)
+
+
+def rjust_consider_kor(value="", max_size=10, fill_char=" "):
+    l = 0
+    for c in value:
+        if unicodedata.east_asian_width(c) in ['F', 'W']:
+            l += 2
+        else:
+            l += 1
+    return fill_char * (max_size - l) + value
+
+
+def ljust_consider_kor(value="", max_size=10, fill_char=" "):
+    l = 0
+    for c in value:
+        if unicodedata.east_asian_width(c) in ['F', 'W']:
+            l += 2
+        else:
+            l += 1
+    return value + fill_char * (max_size - l)
+
+
+def center_consider_kor(value="", max_size=10, fill_char=" "):
+    l = 0
+    for c in value:
+        if unicodedata.east_asian_width(c) in ['F', 'W']:
+            l += 2
+        else:
+            l += 1
+    result = fill_char * (int)((max_size - l) / 2) + value + \
+        fill_char * (int)((max_size - l) / 2)
+    if (max_size - l) % 2 != 0:
+        return ' ' + result
+    return result
