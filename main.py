@@ -3,6 +3,7 @@ from constants import *
 
 from manage_lectures import manage_lectures
 from manage_timetable import manage_timetable
+from manage_data import manage_data
 
 
 _subjects = {}
@@ -30,7 +31,7 @@ def main():
         elif value == 4:
             manage_timetable(_timetable, _subjects, _lectures, _rooms)
         elif value == 5:
-            manage_data()
+            manage_data(_subjects, _lectures, _rooms, _timetable)
         elif value == 6:
             print()
             print('프로그램을 종료합니다.')
@@ -56,10 +57,6 @@ def manage_subjects():
 
 
 def manage_rooms():
-    print()
-
-
-def manage_data():
     print()
 
 
