@@ -48,8 +48,17 @@ def save():
 def load():
     print()
     print('모든 데이터를 불러옵니다')
-    _subjects = load_data(SUBJECT_PATH)
-    _lectures = load_data(LECTURE_PATH)
-    _rooms = load_data(ROOM_PATH)
-    _timetable = load_data(TIMETABLE_PATH)
+
+    _subjects.clear()
+    _subjects.extend(load_data(SUBJECT_PATH))
+
+    _lectures.clear()
+    _lectures.update(load_data(LECTURE_PATH))
+
+    _rooms.clear()
+    _rooms.extend(load_data(ROOM_PATH))
+
+    _timetable.clear()
+    _timetable.update(load_data(TIMETABLE_PATH))
+
     print('데이터를 모두 불러왔습니다')
