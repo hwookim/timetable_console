@@ -15,7 +15,7 @@ def manage_timetable(timetable=[], subjects=[], lectures=[], rooms=[]):
     value = 0
     while value != 5:
         print_menu()
-        value = input_number('> ', '1 ~ 4 사이의 수를 입력해주세요.')
+        value = input_number('> ', '1 ~ 5 사이의 수를 입력해주세요.')
         if value == 1:
             print_timetable()
         elif value == 2:
@@ -27,7 +27,7 @@ def manage_timetable(timetable=[], subjects=[], lectures=[], rooms=[]):
         elif value == 5:
             break
         else:
-            print('1 ~ 4 사이의 수를 입력해주세요.')
+            print('1 ~ 5 사이의 수를 입력해주세요.')
 
 
 def print_menu():
