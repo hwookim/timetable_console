@@ -1,5 +1,5 @@
-SUBJECT_ID = '교과목 코드'
-SUBJECT_NAME = '과목명'
+SUBJECT_ID = 'subjectCode'
+SUBJECT_NAME = 'subjectName'
 
 LECTURE_ID = '강의 코드'
 YEAR = '개설 년도'

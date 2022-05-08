@@ -48,7 +48,7 @@ def print_lectures():
     print(
         ljust_consider_kor('No.', 5),
         ljust_consider_kor(LECTURE_ID, 15),
-        ljust_consider_kor(SUBJECT_ID, 15),
+        ljust_consider_kor('교과목 코드', 15),
         ljust_consider_kor(YEAR, 15),
         ljust_consider_kor(SEMESTER, 15),
         ljust_consider_kor(TEACHER, 15)
@@ -86,10 +86,11 @@ def input_lecture():
 
 def input_subject():
     while True:
-        subject_id = input(ljust_consider_kor(SUBJECT_ID, 15) + '> ')
+        subject_id = input(ljust_consider_kor('교과목 코드', 15) + '> ')
 
-        for subject_id in _subjects:
-            return subject_id
+        for subject in _subjects:
+            if subject[SUBJECT_ID] == subject_id:
+                return subject_id
 
         print('해당하는 교과목이 없습니다.')
 
@@ -132,7 +133,7 @@ def select_lecture():
 def print_lecture(id):
     print()
     print(ljust_consider_kor(LECTURE_ID, 15), ':', id)
-    print(ljust_consider_kor(SUBJECT_ID, 15), ':', _lectures[id][SUBJECT_ID])
+    print(ljust_consider_kor('교과목 코드', 15), ':', _lectures[id][SUBJECT_ID])
     print(ljust_consider_kor(YEAR, 15), ':', _lectures[id][YEAR])
     print(ljust_consider_kor(SEMESTER, 15), ':', _lectures[id][SEMESTER])
     print(ljust_consider_kor(TEACHER, 15), ':', _lectures[id][TEACHER])

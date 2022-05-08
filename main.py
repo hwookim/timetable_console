@@ -1,12 +1,13 @@
 from utils import *
 from constants import *
 
+from manage_subjects import manageSubjects
 from manage_lectures import manage_lectures
 from manage_timetable import manage_timetable
 from manage_data import manage_data
 
 
-_subjects = {}
+_subjects = []
 _lectures = {}
 _rooms = []
 _timetable = {}
@@ -23,7 +24,7 @@ def main():
         print_menu()
         value = input_number('> ', '1 ~ 6 사이의 수를 입력해주세요.')
         if value == 1:
-            manage_subjects()
+            manageSubjects(_subjects)
         elif value == 2:
             manage_lectures(_lectures, _subjects)
         elif value == 3:
