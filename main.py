@@ -5,11 +5,11 @@ from manage_lectures import manage_lectures
 from manage_timetable import manage_timetable
 
 
-subjects = {'MME': {SUBJECT_NAME: '자율사물기초프로그래밍'}}
-lectures = {'MME-01': {TEACHER: '성연식',
-                       SUBJECT_ID: 'MME', YEAR: '2022', SEMESTER: '1'}}
-rooms = []
-timetable = {
+_subjects = {'MME': {SUBJECT_NAME: '자율사물기초프로그래밍'}}
+_lectures = {'MME-01': {TEACHER: '성연식',
+                        SUBJECT_ID: 'MME', YEAR: '2022', SEMESTER: '1'}}
+_rooms = []
+_timetable = {
     DAYS[0]: {'4105': {
         TIMES[0]: 'MME-01',
         TIMES[1]: 'MME-01',
@@ -23,10 +23,10 @@ timetable = {
 
 
 def main():
-    global subjects
-    global lectures
-    global rooms
-    global timetable
+    global _subjects
+    global _lectures
+    global _rooms
+    global _timetable
 
     value = 0
     while value != 7:
@@ -35,11 +35,11 @@ def main():
         if value == 1:
             manage_subjects()
         elif value == 2:
-            manage_lectures(lectures, subjects)
+            manage_lectures(_lectures, _subjects)
         elif value == 3:
             manage_rooms()
         elif value == 4:
-            manage_timetable(timetable, subjects, lectures, rooms)
+            manage_timetable(_timetable, _subjects, _lectures, _rooms)
         elif value == 5:
             manage_data()
         elif value == 6:
