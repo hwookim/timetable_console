@@ -42,7 +42,7 @@ def print_menu():
 def print_lectures():
     print()
     if not len(_lectures) > 0:
-        print('_등록된 강의가 없습니다.')
+        print('등록된 강의가 없습니다.')
         return
 
     print(
