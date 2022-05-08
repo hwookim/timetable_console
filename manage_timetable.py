@@ -1,13 +1,5 @@
 from utils import *
-
-import manage_lectures
-import manage_subjects
-
-
-TIMES = ('08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00',
-         '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:25', '18:50', '19:15', '19:40', '20:05')
-
-DAYS = ('월요일', '화요일', '수요일', '목요일', '금요일')
+from constants import *
 
 
 def manage_timetable(timetable=[], subjects=[], lectures=[], rooms=[]):
@@ -34,8 +26,6 @@ def manage_timetable(timetable=[], subjects=[], lectures=[], rooms=[]):
             break
         else:
             print('1 ~ 4 사이의 수를 입력해주세요.')
-
-    return _timetable
 
 
 def print_menu():
@@ -95,9 +85,9 @@ def print_timetable_in_range_time(start=0, end=6):
 
 
 def get_lecture_info(lecture_code):
-    subject_id = _lectures[lecture_code][manage_lectures.SUBJECT_ID]
-    subject_name = _subjects[subject_id][manage_subjects.NAME]
-    teacher_name = _lectures[lecture_code][manage_lectures.TEACHER]
+    subject_id = _lectures[lecture_code][SUBJECT_ID]
+    subject_name = _subjects[subject_id][SUBJECT_NAME]
+    teacher_name = _lectures[lecture_code][TEACHER]
     return '{0}({1})'.format(subject_name[0:10], teacher_name[0:3])
 
 

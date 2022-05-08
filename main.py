@@ -1,17 +1,33 @@
-from re import sub
 from utils import *
+from constants import *
 
 from manage_lectures import manage_lectures
 from manage_timetable import manage_timetable
 
 
-subjects = []
-lectures = []
+subjects = {'MME': {SUBJECT_NAME: '자율사물기초프로그래밍'}}
+lectures = {'MME-01': {TEACHER: '성연식',
+                       SUBJECT_ID: 'MME', YEAR: '2022', SEMESTER: '1'}}
 rooms = []
-timetable = []
+timetable = {
+    DAYS[0]: {'4105': {
+        TIMES[0]: 'MME-01',
+        TIMES[1]: 'MME-01',
+        TIMES[2]: 'MME-01',
+    }},
+    DAYS[1]: {'4105': {}},
+    DAYS[2]: {'4105': {}},
+    DAYS[3]: {'4105': {}},
+    DAYS[4]: {'4105': {}}
+}
 
 
 def main():
+    global subjects
+    global lectures
+    global rooms
+    global timetable
+
     value = 0
     while value != 7:
         print_menu()
@@ -23,7 +39,7 @@ def main():
         elif value == 3:
             manage_rooms()
         elif value == 4:
-            manage_timetable(timetable, lectures, rooms)
+            manage_timetable(timetable, subjects, lectures, rooms)
         elif value == 5:
             manage_data()
         elif value == 6:
