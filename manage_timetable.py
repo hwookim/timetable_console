@@ -89,25 +89,3 @@ def get_lecture_info(lecture_code):
     subject_name = _subjects[subject_id][SUBJECT_NAME]
     teacher_name = _lectures[lecture_code][TEACHER]
     return '{0}({1})'.format(subject_name[0:10], teacher_name[0:3])
-
-
-'''
-실행 예시
-- 데이터 변경 필요
-manage_timetable(
-    {
-        DAYS[0]: {'4105': {
-            TIMES[0]: 'MME-01',
-            TIMES[1]: 'MME-01',
-            TIMES[2]: 'MME-01',
-        }},
-        DAYS[1]: {'4105': {}},
-        DAYS[2]: {'4105': {}},
-        DAYS[3]: {'4105': {}},
-        DAYS[4]: {'4105': {}}
-    },
-    {'MME': {'교과목명': '자율사물기초프로그래밍'}},
-    {'MME-01': {'교원명': '성연식', '교과목 코드': 'MME'}}
-)
-
-'''

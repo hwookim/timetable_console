@@ -136,6 +136,3 @@ def print_lecture(id):
     print(ljust_consider_kor(YEAR, 15), ':', _lectures[id][YEAR])
     print(ljust_consider_kor(SEMESTER, 15), ':', _lectures[id][SEMESTER])
     print(ljust_consider_kor(TEACHER, 15), ':', _lectures[id][TEACHER])
-
-
-# manage_lectures({}, {'MME': 'h'})

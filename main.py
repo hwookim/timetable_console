@@ -10,15 +10,11 @@ _lectures = {'MME-01': {TEACHER: '성연식',
                         SUBJECT_ID: 'MME', YEAR: '2022', SEMESTER: '1'}}
 _rooms = []
 _timetable = {
-    DAYS[0]: {'4105': {
-        TIMES[0]: 'MME-01',
-        TIMES[1]: 'MME-01',
-        TIMES[2]: 'MME-01',
-    }},
-    DAYS[1]: {'4105': {}},
-    DAYS[2]: {'4105': {}},
-    DAYS[3]: {'4105': {}},
-    DAYS[4]: {'4105': {}}
+    DAYS[0]: {},
+    DAYS[1]: {},
+    DAYS[2]: {},
+    DAYS[3]: {},
+    DAYS[4]: {}
 }
 
 
