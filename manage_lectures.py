@@ -1,26 +1,31 @@
 from utils import *
+from constants import *
 
 
 def manage_lectures(lectures=[], subjects=[]):
-    data = lectures
+    global _subjects
+    global _lectures
+    _subjects = subjects
+    _lectures = lectures
+
     value = 0
     while value != 5:
         print_menu()
         value = input_number('> ', '1 ~ 5 사이의 수를 입력해주세요.')
         if value == 1:
-            print_lectures(data)
+            print_lectures()
         elif value == 2:
-            data.append(input_lecture(subjects))
+            id, new_lecture = input_lecture()
+            _lectures[id] = new_lecture
         elif value == 3:
-            data = update_lecture(data)
+            id, updated_lecture = update_lecture()
+            _lectures[id] = updated_lecture
         elif value == 4:
-            data = delete_lecture(data)
+            _lectures = delete_lecture()
         elif value == 5:
             break
         else:
             print('1 ~ 5 사이의 수를 입력해주세요.')
-
-    return data
 
 
 def print_menu():
@@ -34,87 +39,103 @@ def print_menu():
     print('**********************************************************************')
 
 
-def print_lectures(lectures=[]):
-    if not len(lectures) > 0:
-        print('등록된 강의가 없습니다.')
-        return
-    print('No.\t\t 강의 코드\t 교과목 코드\t 개설 학년\t 개설 학기\t 교원명')
-    print('--------------- --------------- --------------- --------------- --------------- ---------------\t')
-    for index, lecture in enumerate(lectures):
-        print('%-15d %-15s %-15s %-15d %-15d %-15s' %
-              (index + 1, lecture['id'][0:15], lecture['subject_id'][0:15],
-               lecture['year'], lecture['semester'], lecture['teacher'][0:15]))
-
-
-def input_lecture(subjects=[]):
+def print_lectures():
     print()
-    id = input('강의 코드\t > ')
-    subject_id = input_subjects(subjects)
-    year = input_range('개설 년도\t > ', 2000, 3000, '올바른 년도를 입력해주세요.')
-    semester = input_range('개설 학기\t > ', 1, 2, '올바른 학기를 입력해주세요.')
-    teacher = input('교원명\t\t > ')
+    if not len(_lectures) > 0:
+        print('_등록된 강의가 없습니다.')
+        return
 
-    return {'id': id, 'subject_id': subject_id,
-            'year': year, 'semester': semester,
-            'teacher': teacher}
+    print(
+        ljust_consider_kor('No.', 5),
+        ljust_consider_kor(LECTURE_ID, 15),
+        ljust_consider_kor(SUBJECT_ID, 15),
+        ljust_consider_kor(YEAR, 15),
+        ljust_consider_kor(SEMESTER, 15),
+        ljust_consider_kor(TEACHER, 15)
+    )
+    print('-' * 150)
+
+    for index, id in enumerate(_lectures.keys()):
+        print(
+            ljust_consider_kor(str(index + 1), 5),
+            ljust_consider_kor(id[0:15], 15),
+            ljust_consider_kor(_lectures[id][SUBJECT_ID][0:15], 15),
+            ljust_consider_kor(_lectures[id][YEAR], 15),
+            ljust_consider_kor(_lectures[id][SEMESTER], 15),
+            ljust_consider_kor(_lectures[id][TEACHER][0:15], 15)
+        )
 
 
-def input_subjects(subjects=[]):
+def input_lecture():
+    print()
+    id = input(ljust_consider_kor(LECTURE_ID, 15) + '> ')
+    subject_id = input_subject()
+    year = str(input_range(ljust_consider_kor(YEAR, 15) + '> ',
+                           2000, 3000, '올바른 년도를 입력해주세요.'))
+    semester = str(input_range(ljust_consider_kor(SEMESTER, 15) + '> ',
+                               1, 2, '올바른 학기를 입력해주세요.'))
+    teacher = input(ljust_consider_kor(TEACHER, 15) + '> ')
+
+    return id, {
+        SUBJECT_ID: subject_id,
+        YEAR: year,
+        SEMESTER: semester,
+        TEACHER: teacher
+    }
+
+
+def input_subject():
     while True:
-        subject_id = input('교과목 코드\t > ')
+        subject_id = input(ljust_consider_kor(SUBJECT_ID, 15) + '> ')
 
-        for subject in subjects:
-            if subject['id'] == subject_id:
-                return subject_id
+        for subject_id in _subjects:
+            return subject_id
 
         print('해당하는 교과목이 없습니다.')
 
 
-def update_lecture(lectures=[]):
-    data = lectures
-
+def update_lecture():
     print()
-    if not len(data) > 0:
+    if not len(_lectures) > 0:
         print('등록된 강의가 없습니다.')
         return
-    index = select_lecture(data)
-    data[index] = input_lecture()
+    id = select_lecture()
+    del _lectures[id]
+    return input_lecture()
 
-    return data
 
-
-def delete_lecture(lectures=[]):
-    data = lectures
-
+def delete_lecture():
     print()
-    if not len(data) > 0:
+    if not len(_lectures) > 0:
         print('등록된 강의가 없습니다.')
         return
-    index = select_lecture(data)
-    del data[index]
+    id = select_lecture()
+    del _lectures[id]
 
-    return data
+    return _lectures
 
 
-def select_lecture(lectures=[]):
-    data = lectures
-
-    if not len(data) > 0:
+def select_lecture():
+    if not len(_lectures) > 0:
         print('등록된 강의가 없습니다.')
         return
-    print_lectures(data)
+    print_lectures()
     print()
 
-    index = input_range('No. > ', 1, len(data), '범위 내의 값을 입력해주세요.') - 1
-    print_lecture(data[index])
+    index = input_range('No. > ', 1, len(_lectures), '범위 내의 값을 입력해주세요.') - 1
+    selected_id = list(_lectures.keys())[index]
+    print_lecture(selected_id)
 
-    return index
+    return selected_id
 
 
-def print_lecture(lecture):
+def print_lecture(id):
     print()
-    print('강의 코드\t : %s' % lecture['id'])
-    print('교과목 코드\t : %s' % lecture['subject_id'])
-    print('개설 학년\t : %d' % lecture['year'])
-    print('개설 학기\t : %d' % lecture['semester'])
-    print('교원명\t\t : %s' % lecture['teacher'])
+    print(ljust_consider_kor(LECTURE_ID, 15), ':', id)
+    print(ljust_consider_kor(SUBJECT_ID, 15), ':', _lectures[id][SUBJECT_ID])
+    print(ljust_consider_kor(YEAR, 15), ':', _lectures[id][YEAR])
+    print(ljust_consider_kor(SEMESTER, 15), ':', _lectures[id][SEMESTER])
+    print(ljust_consider_kor(TEACHER, 15), ':', _lectures[id][TEACHER])
+
+
+# manage_lectures({}, {'MME': 'h'})
