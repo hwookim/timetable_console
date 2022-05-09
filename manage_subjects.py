@@ -1,3 +1,5 @@
+from utils import *
+
 def manageSubjects(subjects=[]):
     global manageSubject
     manageSubject = subjects
@@ -51,8 +53,14 @@ def retrieveSubject():
     print('입력된 교과목 정보')
     for index, subject in enumerate(manageSubject):
         print('-------------------- -------------------- -------------------- -------------------- -------------------- --------------------')
-        print('%-20d %-20s %-20s %20s %20s %20s' % (index + 1,
-              subject['subjectCode'], subject['subjectName'], subject['subjectGrade'], subject['subjectSem'], subject['subjectEx']))
+        print(
+                ljust_consider_kor(str(index + 1), 20),
+                ljust_consider_kor(subject['subjectCode'], 20),
+                ljust_consider_kor(subject['subjectName'], 20),
+                ljust_consider_kor(subject['subjectGrade'], 20),
+                ljust_consider_kor(subject['subjectSem'], 20),
+                ljust_consider_kor(subject['subjectEx'], 20),
+            )
 
 
 def inputSubject():
