@@ -20,6 +20,7 @@ def manage_timetable(timetable=[], subjects=[], lectures=[], rooms=[]):
         print_menu()
         value = input_number('> ', '1 ~ 5 사이의 수를 입력해주세요.')
         if value == 1:
+            print()
             year, semester = select_year_semester()
             print_timetable(year, semester)
         elif value == 2:
@@ -172,8 +173,7 @@ def input_timetable():
         flag = False
 
         room_code = input_room_code()
-        day = input_day()
-        times = input_time()
+        day, times = input_time()
         if not room_code in comparison_target[day]:
             comparison_target[day][room_code] = {}
             break
@@ -194,12 +194,11 @@ def input_timetable():
         TIMETABLE_ROOM: room_code,
         TIMETABLE_LECTURE: lecture_code
     })
-    print(_timetable)
 
 
 def input_room_code():
     while True:
-        room_code = input(ljust_consider_kor('강의실 코드', 27) + '> ')
+        room_code = input(ljust_consider_kor('강의실 코드', 15) + '> ')
 
         for room in _rooms:
             if room[ROOM_CODE] == room_code:
@@ -208,30 +207,26 @@ def input_room_code():
         print('해당하는 강의실이 없습니다.')
 
 
-def input_day():
-    while True:
-        day = input(ljust_consider_kor('강의 요일 (ex.월요일)', 27) + '> ')
-        if day in DAYS:
-            return day
-
-        print('잘못 입력하셨습니다.')
-        print('요일 (ex.월요일)의 형태로 입력해주세요.')
-
-
 def input_time():
     while True:
-        times = input(ljust_consider_kor('강의 시간 (ex.09:00~11:00)', 27) + '> ')
+        flag = False
+        day_times = input('강의 요일/시간 (ex.월요일/09:00~11:00) > ')
+        day, times = day_times.split('/')
+        if not day in DAYS:
+            break
         start, end = times.split('~')
-        if start in TIMES and end in TIMES:
-            return times
+        if not start in TIMES or not end in TIMES:
+            break
+        return day, times
 
-        print('잘못 입력하셨습니다.')
-        print('시작시간~종료시간 (ex.09:00~11:00)의 형태로 입력해주세요.')
+    print('잘못 입력하셨습니다.')
+    print('요일/시작시간~종료시간 (ex.월요일/09:00~11:00)의 형태로 입력해주세요.')
+    return input_time()
 
 
 def input_lecture_code():
     while True:
-        lecture_code = input(ljust_consider_kor('강의 코드', 27) + '> ')
+        lecture_code = input(ljust_consider_kor('강의 코드', 15) + '> ')
 
         if lecture_code in _lectures.keys():
             return lecture_code
