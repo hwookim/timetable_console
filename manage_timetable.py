@@ -1,3 +1,4 @@
+from tkinter import Y
 from utils import *
 from constants import *
 
@@ -17,13 +18,14 @@ def manage_timetable(timetable=[], subjects=[], lectures=[], rooms=[]):
         print_menu()
         value = input_number('> ', '1 ~ 5 사이의 수를 입력해주세요.')
         if value == 1:
-            print_timetable()
+            year, semester = select_year_semester()
+            print_timetable(year, semester)
         elif value == 2:
-            print()
+            input_timetable()
         elif value == 3:
-            print()
+            update_timetable()
         elif value == 4:
-            print()
+            delete_timetable()
         elif value == 5:
             break
         else:
@@ -41,16 +43,12 @@ def print_menu():
     print('**********************************************************************')
 
 
-def print_timetable():
+def print_timetable(year, semester):
     print()
     if not len(_timetable) > 0:
-        print('시간표에 등록된 강의가 없습니다.')
+        print('강의가 등록된 시간표가 없습니다.')
         return
 
-    year = str(input_range(ljust_consider_kor(YEAR, 10) + '> ',
-                           2000, 3000, '올바른 년도를 입력해주세요.'))
-    semester = str(input_range(ljust_consider_kor(SEMESTER, 10) + '> ',
-                               1, 2, '올바른 학기를 입력해주세요.'))
     if not len(_timetable[year][semester]) > 0:
         print('해당 시기의 시간표에 등록된 강의가 없습니다.')
         return
@@ -59,8 +57,16 @@ def print_timetable():
     print_timetable_in_range_time(year, semester, 6.5, 12.5)
 
 
+def select_year_semester():
+    year = str(input_range(ljust_consider_kor(YEAR, 10) + '> ',
+                           2000, 3000, '올바른 년도를 입력해주세요.'))
+    semester = str(input_range(ljust_consider_kor(SEMESTER, 10) + '> ',
+                               1, 2, '올바른 학기를 입력해주세요.'))
+    return year, semester
+
+
 def print_timetable_in_range_time(year, semester, start, end):
-    timetalbe = _timetable[year][semester]
+    target = _timetable[year][semester]
     cnt = 0
     boundary_time = TIMES[(int)(start * 2):(int)(end * 2 + 1)]
     print(center_consider_kor('시간', 20), end=' |')
@@ -69,15 +75,15 @@ def print_timetable_in_range_time(year, semester, start, end):
     print()
 
     print(center_consider_kor('요일', 10) + '|' + center_consider_kor('강의실', 10))
-    for day in timetalbe:
+    for day in target:
         print('-' * 175)
         print(center_consider_kor(day, 10), end='|')
-        for room in timetalbe[day]:
+        for room in target[day]:
             print(center_consider_kor(room, 10), end='|')
             for index, time in enumerate(boundary_time):
-                if not time in timetalbe[day][room]:
+                if not time in target[day][room]:
                     if cnt != 0:
-                        lecture_code = timetalbe[day][room][TIMES[index - 1]]
+                        lecture_code = target[day][room][TIMES[index - 1]]
                         lecture_info = get_lecture_info(lecture_code)
                         print(
                             center_consider_kor(
@@ -103,3 +109,105 @@ def get_lecture_info(lecture_code):
             subject_name = subject[SUBJECT_NAME]
     teacher_name = _lectures[lecture_code][TEACHER]
     return '{0}({1})'.format(subject_name[0:10], teacher_name[0:3])
+
+
+def input_timetable():
+    print()
+    year, semester = select_year_semester()
+    if not year in _timetable:
+        _timetable[year] = {}
+    if not semester in _timetable[year]:
+        _timetable[year][semester] = {}
+
+    print_timetable(year, semester)
+
+    target = _timetable[year][semester]
+
+    while True:
+        flag = False
+
+        room_code = input_room_code()
+        day = input_day()
+        times = input_time()
+        if not room_code in target[day]:
+            target[day][room_code] = {}
+            break
+        for time in times:
+            if TIMES[time] in target[day][room_code]:
+                flag = True
+                break
+        if flag:
+            print('해당 강의실의 해당 시간에 이미 존재하는 강의가 있습니다.')
+        else:
+            break
+
+    lecture_code = input_lecture_code()
+
+    for time in times:
+        target[day][room_code][TIMES[time]] = lecture_code
+
+
+def input_room_code():
+    while True:
+        room_code = input(ljust_consider_kor('강의실 코드', 27) + '> ')
+
+        for room in _rooms:
+            if room[ROOM_CODE] == room_code:
+                return room_code
+
+        print('해당하는 강의실이 없습니다.')
+
+
+def input_day():
+    while True:
+        day = input(ljust_consider_kor('강의 요일 (ex.월요일)', 27) + '> ')
+        if day in DAYS:
+            return day
+
+        print('잘못 입력하셨습니다.')
+        print('요일 (ex.월요일)의 형태로 입력해주세요.')
+
+
+def input_time():
+    while True:
+        times = input(ljust_consider_kor('강의 시간 (ex.09:00~11:00)', 27) + '> ')
+        start, end = times.split('~')
+        if start in TIMES and end in TIMES:
+            return range(TIMES.index(start), TIMES.index(end))
+
+        print('잘못 입력하셨습니다.')
+        print('시작시간~종료시간 (ex.09:00~11:00)의 형태로 입력해주세요.')
+
+
+def input_lecture_code():
+    while True:
+        lecture_code = input(ljust_consider_kor('강의 코드', 27) + '> ')
+
+        if lecture_code in _lectures.keys():
+            return lecture_code
+
+        print('해당하는 강의가 없습니다.')
+
+
+def update_timetable():
+    if not len(_timetable) > 0:
+        print('강의가 등록된 시간표가 없습니다.')
+        return
+
+    year, semester = select_year_semester()
+    target = _timetable[year][semester]
+    if not len(target) > 0:
+        print('해당 시기의 시간표에 등록된 강의가 없습니다.')
+        return
+
+
+def delete_timetable():
+    if not len(_timetable) > 0:
+        print('강의가 등록된 시간표가 없습니다.')
+        return
+
+    year, semester = select_year_semester()
+    target = _timetable[year][semester]
+    if not len(target) > 0:
+        print('해당 시기의 시간표에 등록된 강의가 없습니다.')
+        return
