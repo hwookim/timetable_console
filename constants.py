@@ -9,7 +9,9 @@ YEAR = '개설 년도'
 SEMESTER = '개설 학기'
 TEACHER = '교원명'
 
-ROOM_CODE = '강의실 코드'
+ROOM_CODE = 'Code'
+ROOM_NAME = 'Name'
+ROOM_CAPACITY = 'Capacity'
 
 
 DAYS = ('월요일', '화요일', '수요일', '목요일', '금요일')

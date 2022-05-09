@@ -3,6 +3,7 @@ from constants import *
 
 from manage_subjects import manageSubjects
 from manage_lectures import manage_lectures
+from manage_rooms import mainRoom
 from manage_timetable import manage_timetable
 from manage_data import manage_data
 
@@ -11,7 +12,7 @@ _subjects = [{SUBJECT_CODE: 'MME', SUBJECT_NAME: '자율사물기초프로그래
               SUBJECT_GRADE: '1', SUBJECT_SEM: '1', SUBJECT_EX: '파이썬'}]
 _lectures = {'MME-01': {TEACHER: '성연식',
                         SUBJECT_CODE: 'MME', YEAR: '2022', SEMESTER: '1'}}
-_rooms = []
+_rooms = [{ROOM_CODE: '4105', ROOM_NAME: '4105', ROOM_CAPACITY: '40'}]
 _timetable = {
     '2022': {
         '1': {
@@ -46,7 +47,7 @@ def main():
         elif value == 2:
             manage_lectures(_lectures, _subjects)
         elif value == 3:
-            manage_rooms()
+            mainRoom()
         elif value == 4:
             manage_timetable(_timetable, _subjects, _lectures, _rooms)
         elif value == 5:
@@ -69,14 +70,6 @@ def print_menu():
     print('5. 데이터 관리')
     print('6. 종료')
     print('**********************************************************************')
-
-
-def manage_subjects():
-    print()
-
-
-def manage_rooms():
-    print()
 
 
 main()
