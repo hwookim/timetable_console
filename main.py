@@ -18,7 +18,7 @@ _timetable = {
         '1': [
             {TIMETABLE_DAY: DAYS[0], TIMETABLE_TIME: '09:00~11:00',
                 TIMETABLE_ROOM: '4105', TIMETABLE_LECTURE: 'MME-01'},
-            {TIMETABLE_DAY: DAYS[2], TIMETABLE_TIME: '16:00~18:00',
+            {TIMETABLE_DAY: DAYS[2], TIMETABLE_TIME: '14:00~16:30',
                 TIMETABLE_ROOM: '4105', TIMETABLE_LECTURE: 'MME-01'}
         ]
     }

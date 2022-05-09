@@ -115,7 +115,8 @@ def print_timetable_in_range_time(timetable, start, end):
                 if not time in timetable[day][room]:
                     if cnt != 0:
                         lecture_code = timetable[day][room][TIMES[index - 1 + start_index]]
-                        lecture_info = get_lecture_info(lecture_code)
+                        lecture_info = get_lecture_info(
+                            lecture_code, cnt)
                         print(
                             center_consider_kor(
                                 lecture_info, 10 * cnt + cnt - 1),
@@ -128,18 +129,30 @@ def print_timetable_in_range_time(timetable, start, end):
                         cnt += 1
                         continue
                     cnt = 1
+            if cnt != 0:
+                lecture_code = timetable[day][room][TIMES[end_index - 1]]
+                lecture_info = get_lecture_info(
+                    lecture_code, cnt)
+                print(
+                    center_consider_kor(
+                        lecture_info, 10 * cnt + cnt - 1),
+                    end='|'
+                )
+                cnt = 0
         print()
     print('-' * 175)
     print()
 
 
-def get_lecture_info(lecture_code):
+def get_lecture_info(lecture_code, space):
     subject_code = _lectures[lecture_code][SUBJECT_CODE]
     for subject in _subjects:
         if subject[SUBJECT_CODE] == subject_code:
             subject_name = subject[SUBJECT_NAME]
     teacher_name = _lectures[lecture_code][TEACHER]
-    return '{0}({1})'.format(subject_name[0:10], teacher_name[0:3])
+    if space <= 2:
+        return '{0}({1})'.format(subject_name[0:space*3], teacher_name[0:1])
+    return '{0}({1})'.format(subject_name[0:space*5], teacher_name[0:3])
 
 
 def input_timetable():
