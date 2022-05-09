@@ -15,19 +15,12 @@ _lectures = {'MME-01': {TEACHER: '성연식',
 _rooms = [{ROOM_CODE: '4105', ROOM_NAME: '4105', ROOM_CAPACITY: '40'}]
 _timetable = {
     '2022': {
-        '1': {
-            DAYS[0]: {
-                '4105': {
-                    TIMES[0]: 'MME-01',
-                    TIMES[1]: 'MME-01',
-                    TIMES[2]: 'MME-01',
-                }
-            },
-            DAYS[1]: {},
-            DAYS[2]: {},
-            DAYS[3]: {},
-            DAYS[4]: {}
-        }
+        '1': [
+            {TIMETABLE_DAY: DAYS[0], TIMETABLE_TIME: '09:00~11:00',
+                TIMETABLE_ROOM: '4105', TIMETABLE_LECTURE: 'MME-01'},
+            {TIMETABLE_DAY: DAYS[2], TIMETABLE_TIME: '16:00~18:00',
+                TIMETABLE_ROOM: '4105', TIMETABLE_LECTURE: 'MME-01'}
+        ]
     }
 }
 

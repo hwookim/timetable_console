@@ -13,6 +13,11 @@ ROOM_CODE = 'Code'
 ROOM_NAME = 'Name'
 ROOM_CAPACITY = 'Capacity'
 
+TIMETABLE_DAY = '요일'
+TIMETABLE_ROOM = '강의실'
+TIMETABLE_LECTURE = '강의'
+TIMETABLE_TIME = '시간'
+
 
 DAYS = ('월요일', '화요일', '수요일', '목요일', '금요일')
 TIMES = ('08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00',

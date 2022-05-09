@@ -1,3 +1,5 @@
+import re
+from this import d
 from tkinter import Y
 from utils import *
 from constants import *
@@ -49,12 +51,15 @@ def print_timetable(year, semester):
         print('강의가 등록된 시간표가 없습니다.')
         return
 
-    if not len(_timetable[year][semester]) > 0:
+    target = _timetable[year][semester]
+    if not len(target) > 0:
         print('해당 시기의 시간표에 등록된 강의가 없습니다.')
         return
 
-    print_timetable_in_range_time(year, semester, 0, 6)
-    print_timetable_in_range_time(year, semester, 6.5, 12.5)
+    timetable = convert_timetable(target)
+
+    print_timetable_in_range_time(timetable, 0, 6)
+    print_timetable_in_range_time(timetable, 6.5, 12.5)
 
 
 def select_year_semester():
@@ -65,25 +70,51 @@ def select_year_semester():
     return year, semester
 
 
-def print_timetable_in_range_time(year, semester, start, end):
-    target = _timetable[year][semester]
+def convert_timetable(timetable):
+    result = {
+        DAYS[0]: {},
+        DAYS[1]: {},
+        DAYS[2]: {},
+        DAYS[3]: {},
+        DAYS[4]: {},
+    }
+
+    for item in timetable:
+        day = item[TIMETABLE_DAY]
+        room_code = item[TIMETABLE_ROOM]
+        times = item[TIMETABLE_TIME]
+        lecture_code = item[TIMETABLE_LECTURE]
+
+        if not room_code in result[day]:
+            result[day][room_code] = {}
+
+        start, end = times.split('~')
+        for time in range(TIMES.index(start), TIMES.index(end)):
+            result[day][room_code][TIMES[time]] = lecture_code
+
+    return result
+
+
+def print_timetable_in_range_time(timetable, start, end):
     cnt = 0
-    boundary_time = TIMES[(int)(start * 2):(int)(end * 2 + 1)]
+    start_index = (int)(start * 2)
+    end_index = (int)(end * 2 + 1)
+    boundary_time = TIMES[start_index:end_index]
     print(center_consider_kor('시간', 20), end=' |')
     for time in boundary_time:
         print(center_consider_kor(time, 10), end='|')
     print()
 
     print(center_consider_kor('요일', 10) + '|' + center_consider_kor('강의실', 10))
-    for day in target:
+    for day in timetable:
         print('-' * 175)
         print(center_consider_kor(day, 10), end='|')
-        for room in target[day]:
+        for room in timetable[day]:
             print(center_consider_kor(room, 10), end='|')
             for index, time in enumerate(boundary_time):
-                if not time in target[day][room]:
+                if not time in timetable[day][room]:
                     if cnt != 0:
-                        lecture_code = target[day][room][TIMES[index - 1]]
+                        lecture_code = timetable[day][room][TIMES[index - 1 + start_index]]
                         lecture_info = get_lecture_info(lecture_code)
                         print(
                             center_consider_kor(
@@ -122,6 +153,7 @@ def input_timetable():
     print_timetable(year, semester)
 
     target = _timetable[year][semester]
+    comparison_target = convert_timetable(target)
 
     while True:
         flag = False
@@ -129,11 +161,12 @@ def input_timetable():
         room_code = input_room_code()
         day = input_day()
         times = input_time()
-        if not room_code in target[day]:
-            target[day][room_code] = {}
+        if not room_code in comparison_target[day]:
+            comparison_target[day][room_code] = {}
             break
-        for time in times:
-            if TIMES[time] in target[day][room_code]:
+        start, end = times.split('~')
+        for time in range(TIMES.index(start), TIMES.index(end)):
+            if TIMES[time] in comparison_target[day][room_code]:
                 flag = True
                 break
         if flag:
@@ -142,9 +175,13 @@ def input_timetable():
             break
 
     lecture_code = input_lecture_code()
-
-    for time in times:
-        target[day][room_code][TIMES[time]] = lecture_code
+    target.append({
+        TIMETABLE_DAY: day,
+        TIMETABLE_TIME: times,
+        TIMETABLE_ROOM: room_code,
+        TIMETABLE_LECTURE: lecture_code
+    })
+    print(_timetable)
 
 
 def input_room_code():
@@ -173,7 +210,7 @@ def input_time():
         times = input(ljust_consider_kor('강의 시간 (ex.09:00~11:00)', 27) + '> ')
         start, end = times.split('~')
         if start in TIMES and end in TIMES:
-            return range(TIMES.index(start), TIMES.index(end))
+            return times
 
         print('잘못 입력하셨습니다.')
         print('시작시간~종료시간 (ex.09:00~11:00)의 형태로 입력해주세요.')
