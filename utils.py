@@ -78,7 +78,8 @@ def rjust_consider_kor(value="", max_size=10, fill_char=" "):
     '''한글을 고려한 채우기와 함께 우측정렬
 
     필요한 만큼 특정 문자를 채운 뒤 문자를 우측 정렬.
-    이 때 한글은 2칸을 차지함을 고려함
+    이 때 한글은 2칸을 차지함을 고려함.
+    지정된 넓이 이상의 문자열을 넣으면 그대로 반환.
 
     Args:
         value: 정렬할 문자열
@@ -88,6 +89,8 @@ def rjust_consider_kor(value="", max_size=10, fill_char=" "):
     Returns:
         크기만큼의 넓이를 가진 우측정렬된 문자열
     '''
+    if len(value) > max_size:
+        return value
     l = 0
     for c in value:
         if unicodedata.east_asian_width(c) in ['F', 'W']:
@@ -102,6 +105,7 @@ def ljust_consider_kor(value="", max_size=10, fill_char=" "):
 
     필요한 만큼 특정 문자를 채운 뒤 문자를 좌측 정렬.
     이 때 한글은 2칸을 차지함을 고려함
+    지정된 넓이 이상의 문자열을 넣으면 그대로 반환.
 
     Args:
         value: 정렬할 문자열
@@ -111,6 +115,8 @@ def ljust_consider_kor(value="", max_size=10, fill_char=" "):
     Returns:
         크기만큼의 넓이를 가진 좌측정렬된 문자열
     '''
+    if len(value) > max_size:
+        return value
     l = 0
     for c in value:
         if unicodedata.east_asian_width(c) in ['F', 'W']:
@@ -125,6 +131,7 @@ def center_consider_kor(value="", max_size=10, fill_char=" "):
 
     필요한 만큼 특정 문자를 채운 뒤 문자를 중앙 정렬.
     이 때 한글은 2칸을 차지함을 고려함
+    지정된 넓이 이상의 문자열을 넣으면 그대로 반환.
 
     Args:
         value: 정렬할 문자열
@@ -134,6 +141,8 @@ def center_consider_kor(value="", max_size=10, fill_char=" "):
     Returns:
         크기만큼의 넓이를 가진 중앙정렬된 문자열
     '''
+    if len(value) > max_size:
+        return value
     l = 0
     for c in value:
         if unicodedata.east_asian_width(c) in ['F', 'W']:
