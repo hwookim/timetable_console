@@ -159,7 +159,7 @@ def input_timetable():
     if not year in _timetable:
         _timetable[year] = {}
     if not semester in _timetable[year]:
-        _timetable[year][semester] = {}
+        _timetable[year][semester] = []
 
     print_timetable(year, semester)
 
