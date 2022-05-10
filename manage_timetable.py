@@ -34,7 +34,8 @@ def manage_timetable(timetable={}, subjects=[], lectures={}, rooms=[]):
         elif value == 2:
             print()
             year, semester = select_year_semester()
-            _timetable[year][semester].append(input_timetable(year, semester))
+            data = input_timetable(year, semester)
+            _timetable[year][semester].append(data)
         elif value == 3:
             update_timetable()
         elif value == 4:
