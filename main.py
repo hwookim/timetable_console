@@ -14,11 +14,6 @@ _timetable = {}
 
 
 def main():
-    global _subjects
-    global _lectures
-    global _rooms
-    global _timetable
-
     value = 0
     while value != 7:
         print_menu()
