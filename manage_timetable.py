@@ -26,6 +26,9 @@ def manage_timetable(timetable={}, subjects=[], lectures={}, rooms=[]):
         value = input_number('> ', '1 ~ 5 사이의 수를 입력해주세요.')
         if value == 1:
             print()
+            if not len(_timetable) > 0:
+                print('강의가 등록된 시간표가 없습니다.')
+                return
             year, semester = select_year_semester()
             print_timetable(year, semester)
         elif value == 2:
@@ -60,10 +63,6 @@ def print_timetable(year, semester):
         year: 학년도 int
         semester: 학기 int
     '''
-    print()
-    if not len(_timetable) > 0:
-        print('강의가 등록된 시간표가 없습니다.')
-        return
 
     target = _timetable[year][semester]
     if not len(target) > 0:
