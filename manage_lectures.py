@@ -92,7 +92,7 @@ def input_code():
 
         for subject in _subjects:
             if subject[SUBJECT_CODE] == subject_code:
-                return subject_code
+                return code, subject_code
 
         print('해당하는 교과목이 없습니다.')
 
