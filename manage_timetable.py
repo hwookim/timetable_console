@@ -339,7 +339,37 @@ def delete_timetable():
         return
 
     year, semester = select_year_semester()
-    target = _timetable[year][semester]
-    if not len(target) > 0:
-        print('해당 시기의 시간표에 등록된 강의가 없습니다.')
+    if _timetable[year] == None:
+        print('강의가 등록된 시간표가 없습니다.')
         return
+    if _timetable[year][semester] == None:
+        print('강의가 등록된 시간표가 없습니다.')
+        return
+    target = _timetable[year][semester]
+    delindex = select_timetable(target)
+
+    del target[delindex]
+    print('해당 강의가 삭제되었습니다.')
+
+
+def select_timetable(target):
+    retrieve_timetable(target)
+    print()
+    index = input_range("강의 번호 입력 >", 1, len(target), '존재하지 않는 강의 번호입니다.')
+    return index - 1
+
+
+def retrieve_timetable(target):
+    print()
+
+    print('등록된 강의 정보')
+
+    for index, target in enumerate(target):
+        print('-------------------- -------------------- -------------------- -------------------- --------------------')
+        print(
+            ljust_consider_kor(str(index + 1), 20),
+            ljust_consider_kor(target[TIMETABLE_DAY], 20),
+            ljust_consider_kor(target[TIMETABLE_ROOM], 20),
+            ljust_consider_kor(target[TIMETABLE_TIME], 20),
+            ljust_consider_kor(target[TIMETABLE_LECTURE], 20)
+        )
