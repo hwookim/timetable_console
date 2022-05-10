@@ -1,5 +1,4 @@
 from utils import *
-from constants import *
 
 from manage_subjects import manageSubjects
 from manage_lectures import manage_lectures
