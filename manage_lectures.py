@@ -3,7 +3,13 @@ from utils import *
 from constants import *
 
 
-def manage_lectures(lectures=[], subjects=[]):
+def manage_lectures(lectures={}, subjects=[]):
+    '''강의 관리
+
+    Args:
+        lectures: 강의 dict
+        subjects: 교과목 array
+    '''
     global _subjects
     global _lectures
     _subjects = subjects
@@ -30,6 +36,8 @@ def manage_lectures(lectures=[], subjects=[]):
 
 
 def print_menu():
+    '''강의 메뉴 출력
+    '''
     print()
     print('**********************************************************************')
     print('1. 강의 목록 출력')
@@ -41,6 +49,10 @@ def print_menu():
 
 
 def print_lectures():
+    '''강의 목록 출력
+
+    전체 강의 목록을 출력.
+    '''
     print()
     if not len(_lectures) > 0:
         print('등록된 강의가 없습니다.')
@@ -68,6 +80,13 @@ def print_lectures():
 
 
 def input_lecture():
+    '''강의 입력
+
+    강의코드, 학년도, 학기, 교원명을 입력 받음.
+
+    Returns:
+        강의코드, {교과목코드, 학년도, 학기, 교원명}
+    '''
     print()
     code, subject_code = input_code()
     year = str(input_range(ljust_consider_kor(YEAR, 15) + '> ',
@@ -85,6 +104,14 @@ def input_lecture():
 
 
 def input_code():
+    '''강의 코드 입력
+
+    '교과목코드-분반'의 형태로 입력.
+    교과목코드가 _subjects에 존재하지 않으면 재입력.
+
+    Returns:
+        강의 코드
+    '''
     while True:
         code = input(ljust_consider_kor(
             '강의 코드(MME2051-01)', 15) + '> ')
@@ -98,6 +125,12 @@ def input_code():
 
 
 def update_lecture():
+    '''강의 수정
+
+    Returns:
+        수정된 강의
+        강의코드, {교과목코드, 학년도, 학기, 교원명}
+    '''
     print()
     if not len(_lectures) > 0:
         print('등록된 강의가 없습니다.')
@@ -108,6 +141,8 @@ def update_lecture():
 
 
 def delete_lecture():
+    '''강의 삭제
+    '''
     print()
     if not len(_lectures) > 0:
         print('등록된 강의가 없습니다.')
@@ -115,10 +150,16 @@ def delete_lecture():
     code = select_lecture()
     del _lectures[code]
 
-    return _lectures
-
 
 def select_lecture():
+    '''강의 선택
+
+    강의 수정, 삭제 시 대상 강의를 선택.
+    강의 목록 출력 후 index를 통해 선택.
+
+    Returns:
+        선택된 강의 코드
+    '''
     if not len(_lectures) > 0:
         print('등록된 강의가 없습니다.')
         return
@@ -133,6 +174,10 @@ def select_lecture():
 
 
 def print_lecture(code):
+    '''강의 출력
+
+    강의 선택 시 선택된 강의 하나의 정보를 출력
+    '''
     print()
     print(ljust_consider_kor(LECTURE_CODE, 15), ':', code)
     print(ljust_consider_kor('교과목 코드', 15), ':', _lectures[code][SUBJECT_CODE])
