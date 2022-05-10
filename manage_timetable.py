@@ -28,7 +28,7 @@ def manage_timetable(timetable={}, subjects=[], lectures={}, rooms=[]):
             print()
             if not len(_timetable) > 0:
                 print('강의가 등록된 시간표가 없습니다.')
-                return
+                break
             year, semester = select_year_semester()
             print_timetable(year, semester)
         elif value == 2:
