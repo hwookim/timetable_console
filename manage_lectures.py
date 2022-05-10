@@ -1,3 +1,4 @@
+from posixpath import split
 from utils import *
 from constants import *
 
@@ -68,8 +69,7 @@ def print_lectures():
 
 def input_lecture():
     print()
-    code = input(ljust_consider_kor(LECTURE_CODE, 15) + '> ')
-    subject_code = input_subject()
+    code, subject_code = input_code()
     year = str(input_range(ljust_consider_kor(YEAR, 15) + '> ',
                            2000, 3000, '올바른 년도를 입력해주세요.'))
     semester = str(input_range(ljust_consider_kor(SEMESTER, 15) + '> ',
@@ -84,9 +84,11 @@ def input_lecture():
     }
 
 
-def input_subject():
+def input_code():
     while True:
-        subject_code = input(ljust_consider_kor('교과목 코드', 15) + '> ')
+        code = input(ljust_consider_kor(
+            '강의 코드(MME2051-01)', 15) + '> ')
+        subject_code, _ = code.split('-')
 
         for subject in _subjects:
             if subject[SUBJECT_CODE] == subject_code:
