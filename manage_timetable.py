@@ -2,7 +2,15 @@ from utils import *
 from constants import *
 
 
-def manage_timetable(timetable=[], subjects=[], lectures=[], rooms=[]):
+def manage_timetable(timetable={}, subjects=[], lectures={}, rooms=[]):
+    '''시간표 관리
+
+    Args:
+        timetable: 시간표 dict
+        subjects: 교과목 array
+        lectures: 강의 dict
+        rooms: 강의실 array
+    '''
     global _timetable
     global _subjects
     global _lectures
@@ -33,6 +41,8 @@ def manage_timetable(timetable=[], subjects=[], lectures=[], rooms=[]):
 
 
 def print_menu():
+    '''시간표 관리 메뉴 출력
+    '''
     print()
     print('**********************************************************************')
     print('1. 시간표 출력')
@@ -44,6 +54,12 @@ def print_menu():
 
 
 def print_timetable(year, semester):
+    '''시간표 출력
+
+    Args:
+        year: 학년도 int
+        semester: 학기 int
+    '''
     print()
     if not len(_timetable) > 0:
         print('강의가 등록된 시간표가 없습니다.')
@@ -61,6 +77,11 @@ def print_timetable(year, semester):
 
 
 def select_year_semester():
+    '''학년도, 학기 선택
+
+    Returns:
+        학년도, 학기
+    '''
     year = str(input_range(ljust_consider_kor(YEAR, 10) + '> ',
                            2000, 3000, '올바른 년도를 입력해주세요.'))
     semester = str(input_range(ljust_consider_kor(SEMESTER, 10) + '> ',
@@ -69,6 +90,13 @@ def select_year_semester():
 
 
 def convert_timetable(timetable):
+    '''[{요일, 강의실, 강의시간, 강의코드}]의 형태를 {요일: {강의실: {강의시간: 강의코드}}}의 형태로 변환
+
+    출력이나 시간표 등록 시 같은 강의실, 시간에 등록하는 걸 방지하기 위한 비교를 편하게 해줌
+
+    Returns:
+        변환된 시간표 dict를 반환
+    '''
     result = {
         DAYS[0]: {},
         DAYS[1]: {},
@@ -94,6 +122,15 @@ def convert_timetable(timetable):
 
 
 def print_timetable_in_range_time(timetable, start, end):
+    '''시간표 분할 출력
+
+    한 번에 시간표를 모두 출력하면 너무 길어 콘솔창에서 줄바꿈이 일어나 분할해서 출력
+
+    Args:
+        timetable: 시간표 dict
+        start: 시작 교시 double
+        end: 끝 교시 double
+    '''
     cnt = 0
     start_index = (int)(start * 2)
     end_index = (int)(end * 2 + 1)
@@ -148,6 +185,18 @@ def print_timetable_in_range_time(timetable, start, end):
 
 
 def get_lecture_info(lecture_code, space):
+    '''강의 정보 반환
+
+    강의명(교원명)의 형태로 변환해서 강의 정보 추출.
+    넓이가 좁은 경우에는 더 축약해서 반환.
+
+    Args:
+        lecture_code: str 강의 코드
+        space: int 시간표 내에서 사용 가능 넓이
+
+    Returns:
+        강의명(교원명)
+    '''
     subject_code = _lectures[lecture_code][SUBJECT_CODE]
     for subject in _subjects:
         if subject[SUBJECT_CODE] == subject_code:
@@ -159,6 +208,11 @@ def get_lecture_info(lecture_code, space):
 
 
 def input_timetable():
+    '''강의 등록
+
+    시간표 내에 강의 등록.
+    같은 강의실 같은 시간에 등록하지 못하도록 함.
+    '''
     print()
     year, semester = select_year_semester()
     if not year in _timetable:
@@ -199,6 +253,14 @@ def input_timetable():
 
 
 def input_room_code():
+    '''강의실 코드 입력
+
+    입력한 강의실 코드가 _rooms에 존재하는지 확인 후 반환.
+    없으면 재입력.
+
+    Returns:
+        강의실 코드
+    '''
     while True:
         room_code = input(ljust_consider_kor('강의실 코드', 15) + '> ')
 
@@ -210,8 +272,15 @@ def input_room_code():
 
 
 def input_time():
+    '''강의 시간 입력
+
+    '요일/시작시간~끝시간'의 형태로 강의 요일과 시간을 입력.
+    형식 오류 시 재입력.
+
+    Returns:
+        강의 요일, 강의 시간(09:00~11:00)
+    '''
     while True:
-        flag = False
         day_times = input('강의 요일/시간 (ex.월요일/09:00~11:00) > ')
         day, times = day_times.split('/')
         if not day in DAYS:
@@ -227,6 +296,14 @@ def input_time():
 
 
 def input_lecture_code():
+    '''강의 코드 입력
+
+    입력한 강의실 코드가 _lectures에 존재하는지 확인 후 반환.
+    없으면 재입력.
+
+    Returns:
+        강의 코드
+    '''
     while True:
         lecture_code = input(ljust_consider_kor('강의 코드', 15) + '> ')
 
