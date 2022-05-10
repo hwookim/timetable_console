@@ -8,21 +8,10 @@ from manage_timetable import manage_timetable
 from manage_data import manage_data
 
 
-_subjects = [{SUBJECT_CODE: 'MME', SUBJECT_NAME: '자율사물기초프로그래밍',
-              SUBJECT_GRADE: '1', SUBJECT_SEM: '1', SUBJECT_EX: '파이썬'}]
-_lectures = {'MME-01': {TEACHER: '성연식',
-                        SUBJECT_CODE: 'MME', YEAR: '2022', SEMESTER: '1'}}
-_rooms = [{ROOM_CODE: '4105', ROOM_NAME: '4105', ROOM_CAPACITY: '40'}]
-_timetable = {
-    '2022': {
-        '1': [
-            {TIMETABLE_DAY: DAYS[0], TIMETABLE_TIME: '09:00~11:00',
-                TIMETABLE_ROOM: '4105', TIMETABLE_LECTURE: 'MME-01'},
-            {TIMETABLE_DAY: DAYS[2], TIMETABLE_TIME: '14:00~16:30',
-                TIMETABLE_ROOM: '4105', TIMETABLE_LECTURE: 'MME-01'}
-        ]
-    }
-}
+_subjects = []
+_lectures = {}
+_rooms = []
+_timetable = {}
 
 
 def main():
@@ -40,7 +29,7 @@ def main():
         elif value == 2:
             manage_lectures(_lectures, _subjects)
         elif value == 3:
-            mainRoom()
+            mainRoom(_rooms)
         elif value == 4:
             manage_timetable(_timetable, _subjects, _lectures, _rooms)
         elif value == 5:
