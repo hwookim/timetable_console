@@ -145,12 +145,16 @@ def print_timetable_in_range_time(timetable, start, end):
     print(center_consider_kor('요일', 10) + '|' +
           center_consider_kor('강의실', 10) + '|' +
           (center_consider_kor('', 10) + '|') * len(boundary_time))
+    lecture_code = None
+    prev_lecture = None
     for day in timetable:
         print('-' * len(boundary_time) * 13)
         print(center_consider_kor(day, 10), end='|')
         for room in timetable[day]:
             print(center_consider_kor(room, 10), end='|')
             for index, time in enumerate(boundary_time):
+                if lecture_code is not None:
+                    prev_lecture = lecture_code
                 if not time in timetable[day][room]:
                     if cnt != 0:
                         lecture_code = timetable[day][room][TIMES[index - 1 + start_index]]
@@ -164,10 +168,21 @@ def print_timetable_in_range_time(timetable, start, end):
                         cnt = 0
                     print(' ' * 10, end='|')
                 else:
+                    lecture_code = timetable[day][room][TIMES[index + start_index]]
                     if cnt != 0:
+                        if lecture_code is not prev_lecture:
+                            lecture_info = get_lecture_info(
+                                prev_lecture, cnt)
+                            print(
+                                center_consider_kor(
+                                    lecture_info, 10 * cnt + cnt - 1),
+                                end='|'
+                            )
+                            cnt = 0
                         cnt += 1
                         continue
                     cnt = 1
+
             if cnt != 0:
                 lecture_code = timetable[day][room][TIMES[end_index - 1]]
                 lecture_info = get_lecture_info(
