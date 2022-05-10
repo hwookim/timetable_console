@@ -137,6 +137,7 @@ def print_timetable_in_range_time(timetable, start, end):
                     end='|'
                 )
                 cnt = 0
+            print()
         print()
     print('-' * 175)
     print()
