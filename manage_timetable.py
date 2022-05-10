@@ -32,7 +32,9 @@ def manage_timetable(timetable={}, subjects=[], lectures={}, rooms=[]):
             year, semester = select_year_semester()
             print_timetable(year, semester)
         elif value == 2:
-            input_timetable()
+            print()
+            year, semester = select_year_semester()
+            _timetable[year][semester].append(input_timetable(year, semester))
         elif value == 3:
             update_timetable()
         elif value == 4:
@@ -206,14 +208,20 @@ def get_lecture_info(lecture_code, space):
     return '{0}({1})'.format(subject_name[0:space*5], teacher_name[0:3])
 
 
-def input_timetable():
+def input_timetable(year, semester):
     '''강의 등록
 
     시간표 내에 강의 등록.
     같은 강의실 같은 시간에 등록하지 못하도록 함.
+
+    Args:
+        year: str 강의 코드
+        semester: int 시간표 내에서 사용 가능 넓이
+
+    Returns:
+        시간표에 입력될 강의 dict
+        { 요일, 강의실, 강의, 시간 }
     '''
-    print()
-    year, semester = select_year_semester()
     if not year in _timetable:
         _timetable[year] = {}
     if not semester in _timetable[year]:
@@ -243,12 +251,12 @@ def input_timetable():
             break
 
     lecture_code = input_lecture_code()
-    target.append({
+    return {
         TIMETABLE_DAY: day,
         TIMETABLE_TIME: times,
         TIMETABLE_ROOM: room_code,
         TIMETABLE_LECTURE: lecture_code
-    })
+    }
 
 
 def input_room_code():
