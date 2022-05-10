@@ -3,6 +3,14 @@ from constants import *
 
 
 def manage_data(subjects=[], lectures={}, rooms=[], timetable={}):
+    '''데이터 관리
+
+    Args:
+        subjects: 교과목 array
+        lectures: 강의 dict
+        rooms: 강의실 array
+        timetable: 시간표 dict
+    '''
     global _subjects
     global _lectures
     global _rooms
@@ -27,6 +35,8 @@ def manage_data(subjects=[], lectures={}, rooms=[], timetable={}):
 
 
 def print_menu():
+    '''데이터 관리 메뉴 출력
+    '''
     print()
     print('**********************************************************************')
     print('1. 저장하기')
@@ -36,6 +46,10 @@ def print_menu():
 
 
 def save():
+    '''데이터 저장
+
+    모든 데이터를 기존 정의된 경로에 저장
+    '''
     print()
     print('모든 데이터를 저장합니다')
     save_data(_subjects, SUBJECT_PATH)
@@ -46,6 +60,10 @@ def save():
 
 
 def load():
+    '''데이터 불러오기
+
+    정의된 경로에 존재하는 파일의 정보를 읽어온 뒤 각 전역 변수에 저장
+    '''
     print()
     print('모든 데이터를 불러옵니다')
 
