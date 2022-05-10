@@ -103,9 +103,11 @@ def print_timetable_in_range_time(timetable, start, end):
         print(center_consider_kor(time, 10), end='|')
     print()
 
-    print(center_consider_kor('요일', 10) + '|' + center_consider_kor('강의실', 10))
+    print(center_consider_kor('요일', 10) + '|' +
+          center_consider_kor('강의실', 10) + '|' +
+          (center_consider_kor('', 10) + '|') * len(boundary_time))
     for day in timetable:
-        print('-' * 175)
+        print('-' * len(boundary_time) * 13)
         print(center_consider_kor(day, 10), end='|')
         for room in timetable[day]:
             print(center_consider_kor(room, 10), end='|')
@@ -137,9 +139,11 @@ def print_timetable_in_range_time(timetable, start, end):
                     end='|'
                 )
                 cnt = 0
-            print()
+            if room != list(timetable[day].keys())[-1]:
+                print()
+                print(center_consider_kor('', 10), end='|')
         print()
-    print('-' * 175)
+    print('-' * len(boundary_time) * 13)
     print()
 
 
