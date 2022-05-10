@@ -296,6 +296,8 @@ def input_time():
         start, end = times.split('~')
         if not start in TIMES or not end in TIMES:
             break
+        if TIMES.index(start) >= TIMES.index(end):
+            break
         return day, times
 
     print('잘못 입력하셨습니다.')
