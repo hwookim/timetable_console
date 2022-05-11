@@ -339,15 +339,57 @@ def input_lecture_code():
 
 
 def update_timetable():
+
     if not len(_timetable) > 0:
         print('강의가 등록된 시간표가 없습니다.')
         return
 
-    year, semester = select_year_semester()
+    year , semester = select_year_semester()
     target = _timetable[year][semester]
-    if not len(target) > 0:
-        print('해당 시기의 시간표에 등록된 강의가 없습니다.')
-        return
+    index = select_timetable_up(target)
+    target[index] = input_timetable(year,semester)
+        
+
+    print()
+    print('Updated.')
+    retrieve_timetable(target)
+
+
+def printTimetable(lecture):
+
+    print('요일         :%s' % lecture[TIMETABLE_DAY])
+    print('시간         :%s' % lecture[TIMETABLE_TIME])
+    print('강의실       :%s' % lecture[TIMETABLE_ROOM])
+    print('강의코드     :%s' % lecture[TIMETABLE_LECTURE])
+
+
+def select_timetable_up(target):
+    retrieve_timetable(target)
+    print()
+    index = input_range("강의 번호 입력 >", 1, len(target), '존재하지 않는 강의 번호입니다.')
+    printTimetable(target[index - 1])
+
+    return index -1
+
+def inputRange(message: str, start: int, end: int):
+    value = start - 1
+    error = f'Please enter a number between {start} to {end}!!'
+    while value < start or value > end:
+        value = inputNumber(message, error)
+        if value >= start and value <= end:
+            break
+        print(error)
+
+def inputNumber(message: str, error: str):
+    try:
+        value = int(input(message))
+        return value
+    except ValueError:
+        print(error)
+        return inputNumber(message, error)
+
+
+
 
 
 def delete_timetable():
@@ -378,6 +420,10 @@ def select_timetable(target):
 
 def retrieve_timetable(target):
     print()
+
+    if target == None:
+        print('강의가 등록된 시간표가 없습니다.')
+        return
 
     print('등록된 강의 정보')
 
