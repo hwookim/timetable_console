@@ -67,7 +67,7 @@ def inputSubject():
     print()
     subjectCode = input('교과목 코드    >')
     subjectName = input('교과목 명칭    >')
-    subjectGrade = input('학년          >')
+    subjectGrade = input('학년           >')
     subjectSem = input('학기           >')
     subjectEx = input('교과목 해설    >')
 
