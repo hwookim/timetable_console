@@ -1,3 +1,6 @@
+from utils import *
+
+
 def mainRoom(room=[]):
     global Room
     Room = room
@@ -60,11 +63,13 @@ def selectMenu():
 
 def printRoom():
     print('\n')
-    print('index          강의실 코드       명칭            수용가능인원')
-    print('-------------- -------------- -------------- --------------')
+    print('index           강의실 코드      명칭            수용가능인원')
+    print('——————— ——————— ——————— ———————')
     for i, item in enumerate(Room):
-        print('{:<14} {:<14} {:<14} {:<14}'.format(
-            i+1, item['Code'][:14], item['Name'][:14], item['Capacity']))
+        print('{:<15}'.format(i+1),
+              ljust_consider_kor(item['Code'], 15, ' '),
+              ljust_consider_kor(item['Name'], 15, ' '),
+              ljust_consider_kor(item['Capacity'], 15, ' '))
     print('\n')
 
 
