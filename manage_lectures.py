@@ -27,7 +27,7 @@ def manage_lectures(lectures={}, subjects=[]):
             code, updated_lecture = update_lecture()
             _lectures[code] = updated_lecture
         elif value == 4:
-            _lectures = delete_lecture()
+            delete_lecture()
         elif value == 5:
             break
         else:
