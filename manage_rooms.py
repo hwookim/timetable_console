@@ -14,20 +14,16 @@ def mainRoom(room=[]):
                 continue
 
         if a == 1:
-            printRoom()
-            continue
+            printRoom()\
 
         elif a == 2:
-            Room.append(inputRoom())
-            continue
+            Room.append(inputRoom())\
 
         elif a == 3:
             updateRoom()
-            continue
 
         elif a == 4:
             deleteRoom()
-            continue
 
         elif a == 5:
             print('\n끝내기')
@@ -35,7 +31,6 @@ def mainRoom(room=[]):
 
         else:
             print('Please enter a number between 1 to 5!!\n')
-            continue
 
     return Room
 
