@@ -114,6 +114,9 @@ def input_code():
     while True:
         code = input(ljust_consider_kor(
             '강의 코드(MME2051-01)', 15) + '> ')
+        if '-' not in code:
+            print('올바른 형태로 입력해주세요. (MME2051-01)')
+            continue
         subject_code, _ = code.split('-')
 
         for subject in _subjects:
