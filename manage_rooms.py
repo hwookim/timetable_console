@@ -63,13 +63,17 @@ def selectMenu():
 
 def printRoom():
     print('\n')
-    print('index           강의실 코드      명칭            수용가능인원')
-    print('——————— ——————— ——————— ———————')
+    print(ljust_consider_kor('index', 20),
+          ljust_consider_kor('강의실 코드', 20),
+          ljust_consider_kor('명칭', 20),
+          rjust_consider_kor('수용가능인원', 20)
+          )
+    print(('-' * 20 + ' ') * 4)
     for i, item in enumerate(Room):
-        print('{:<15}'.format(i+1),
-              ljust_consider_kor(item['Code'], 15, ' '),
-              ljust_consider_kor(item['Name'], 15, ' '),
-              ljust_consider_kor(item['Capacity'], 15, ' '))
+        print('{:<20}'.format(i+1),
+              ljust_consider_kor(item['Code'], 20),
+              ljust_consider_kor(item['Name'], 20),
+              rjust_consider_kor(item['Capacity'], 20))
     print('\n')
 
 
